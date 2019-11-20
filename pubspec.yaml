@@ -1,8 +1,7 @@
 name: mobility_framework
 description: Mobility for Flutter
-version: 0.0.1
-author:
-homepage:
+version: 1.0.0
+homepage: https://github.com/thepublictransport/mobility_framework
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -11,11 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
 
-  dio: 3.0.3
-  dio_flutter_transformer: ^3.0.2
-  dio_http2_adapter: 1.0.0
-  dio_http_cache: ^0.2.1
-  geolocator: ^5.1.4+2
+  dio: ">=3.0.3 <=3.0.5"
+  dio_flutter_transformer: ">=3.0.0 <=3.0.2"
+  dio_http_cache: ^0.2.4
+  geolocator: ^5.1.5
 
 dev_dependencies:
   flutter_test:

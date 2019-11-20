@@ -42,7 +42,7 @@ class SuperchargedHTTP {
         headers: headers);
 
     Dio handler = Dio(options);
-    handler.transformer = FlutterTransformer();
+    if (kIsWeb) handler.transformer = FlutterTransformer();
     handler.interceptors.add(
         DioCacheManager(CacheConfig(defaultMaxAge: Duration(seconds: 30)))
             .interceptor);
