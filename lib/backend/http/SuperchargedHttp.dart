@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:dio/browser_imp.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_flutter_transformer/dio_flutter_transformer.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:flutter/foundation.dart';
+import "package:http/http.dart" as http;
 
 class SuperchargedHTTP {
   static Future<dynamic> request(
@@ -30,10 +33,10 @@ class SuperchargedHTTP {
     } on DioError catch (e) {
       if (e.response != null) {
         print("Did not result to 200");
-        return null;
+        return requestFallback(URL: URL, timeout: timeout, headers: null);
       } else {
         print("Request failed");
-        return null;
+        return requestFallback(URL: URL, timeout: timeout, headers: null);
       }
     }
 
@@ -69,13 +72,24 @@ class SuperchargedHTTP {
     } on DioError catch (e) {
       if (e.response != null) {
         print("Did not result to 200");
-        return null;
+        return requestFallback(URL: URL, timeout: timeout, headers: headers);
       } else {
         print("Request failed");
-        return null;
+        return requestFallback(URL: URL, timeout: timeout, headers: headers);
       }
     }
 
     return response.data;
+  }
+
+  static Future<dynamic> requestFallback(
+      {
+        @required String URL,
+        @required int timeout,
+        Map<String, dynamic> headers
+      }) async {
+      var response = await http.get(URL, headers: headers);
+
+      return jsonDecode(response.body);
   }
 }

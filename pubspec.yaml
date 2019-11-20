@@ -14,6 +14,7 @@ dependencies:
   dio_flutter_transformer: ">=3.0.0 <=3.0.2"
   dio_http_cache: ^0.2.4
   geolocator: ^5.1.5
+  http: ^0.12.0+2
 
 dev_dependencies:
   flutter_test:
