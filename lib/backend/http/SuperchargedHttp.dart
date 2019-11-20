@@ -1,3 +1,4 @@
+import 'package:dio/browser_imp.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_flutter_transformer/dio_flutter_transformer.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
@@ -9,7 +10,14 @@ class SuperchargedHTTP {
     BaseOptions options =
         BaseOptions(connectTimeout: timeout, responseType: ResponseType.json);
 
-    Dio handler = Dio(options);
+    var handler;
+
+    if(kIsWeb) {
+      handler = DioForBrowser(options);
+    } else {
+      handler = Dio(options);
+    }
+
     handler.transformer = FlutterTransformer();
     handler.interceptors.add(
         DioCacheManager(CacheConfig(defaultMaxAge: Duration(seconds: 30)))
@@ -41,8 +49,15 @@ class SuperchargedHTTP {
         responseType: ResponseType.json,
         headers: headers);
 
-    Dio handler = Dio(options);
-    if (kIsWeb) handler.transformer = FlutterTransformer();
+    var handler;
+
+    if(kIsWeb) {
+      handler = DioForBrowser(options);
+    } else {
+      handler = Dio(options);
+    }
+
+    handler.transformer = FlutterTransformer();
     handler.interceptors.add(
         DioCacheManager(CacheConfig(defaultMaxAge: Duration(seconds: 30)))
             .interceptor);
